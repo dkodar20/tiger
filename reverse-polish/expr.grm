@@ -8,6 +8,8 @@ it is empty *)
     | MINUS
     | MUL
     | DIV
+    | LEFTBRAC
+    | RIGHTBRAC
     | EOF
     | NEWLINE
 
@@ -46,8 +48,12 @@ PROGRAM : EXPS                 ( EXPS )
 EXPS    : (* empty *)          ( []                  )
 	| EXP NEWLINE EXPS     ( EXP :: EXPS         )
 
-EXP     : CONST                ( Ast.Const CONST     )
-        | EXP PLUS EXP         ( Ast.plus  EXP1 EXP2 )
-    	| EXP MINUS EXP        ( Ast.minus EXP1 EXP2 )
-    	| EXP MUL   EXP        ( Ast.mul   EXP1 EXP2 )
-        | EXP DIV   EXP        ( Ast.div   EXP1 EXP2 )
+EXP     : CONST                             ( Ast.Const CONST     )
+        | EXP PLUS EXP                      ( Ast.plus  EXP1 EXP2 )
+    	| EXP MINUS EXP                     ( Ast.minus EXP1 EXP2 )
+    	| EXP MUL   EXP                     ( Ast.mul   EXP1 EXP2 )
+        | EXP DIV   EXP                     ( Ast.div   EXP1 EXP2 )
+        | EXP PLUS LEFTBRAC EXP RIGHTBRAC   ( Ast.plus  EXP1 EXP2 )
+        | EXP MINUS LEFTBRAC EXP RIGHTBRAC  ( Ast.minus EXP1 EXP2 )
+        | EXP MUL  LEFTBRAC EXP RIGHTBRAC   ( Ast.mul   EXP1 EXP2 )
+        | EXP DIV  LEFTBRAC EXP RIGHTBRAC   ( Ast.div   EXP1 EXP2 )
