@@ -1,5 +1,5 @@
 ## Feb - 17
-I forgot to update changelog till now. Will add all the things done till now from here.
+I forgot to update changelog till now. Adding all the things done till now from here.
 - Made a makefile to run a hello world program in sml in lab - 0
 - Added division and bracketing in reverse polish compiler in lab - 1
 
