@@ -11,6 +11,6 @@ structure Temp :> TEMP = struct
 		      (* you can use IntInf.int if you want unbounded *)
 
    val nextTemp       = ref 0 (* Keep track of how many temps have been allocated *)
-   fun newtemp  _     = (* complete this *)
-   fun tempToString t = (* complete this *)
+   fun newtemp  _     = ref 0
+   fun tempToString t = ref 0(* complete this *)
 end

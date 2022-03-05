@@ -1,0 +1,329 @@
+
+state 0:
+
+	PROGRAM : . EXPS 
+	PROGRAM : . EXPS NEWLINE 
+
+	CONST	shift 6
+	LEFTBRAC	shift 5
+	PRINTLN	shift 4
+	VARIABLE	shift 3
+
+	EXP	goto 2
+	EXPS	goto 1
+	PROGRAM	goto 23
+
+	.	reduce by rule 2
+
+
+state 1:
+
+	PROGRAM : EXPS .  (reduce by rule 0)
+	PROGRAM : EXPS . NEWLINE 
+
+	NEWLINE	shift 7
+
+
+	.	reduce by rule 0
+
+
+state 2:
+
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . MUL EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . ASSIGN EXP 
+	EXPS : EXP . NEWLINE EXPS 
+
+	PLUS	shift 13
+	MINUS	shift 12
+	MUL	shift 11
+	DIV	shift 10
+	NEWLINE	shift 9
+	ASSIGN	shift 8
+
+
+	.	error
+
+
+state 3:
+
+	EXP : VARIABLE .  (reduce by rule 5)
+
+
+
+	.	reduce by rule 5
+
+
+state 4:
+
+	EXP : PRINTLN . EXP 
+
+	CONST	shift 6
+	LEFTBRAC	shift 5
+	PRINTLN	shift 4
+	VARIABLE	shift 3
+
+	EXP	goto 14
+
+	.	error
+
+
+state 5:
+
+	EXP : LEFTBRAC . EXP RIGHTBRAC 
+
+	CONST	shift 6
+	LEFTBRAC	shift 5
+	PRINTLN	shift 4
+	VARIABLE	shift 3
+
+	EXP	goto 15
+
+	.	error
+
+
+state 6:
+
+	EXP : CONST .  (reduce by rule 4)
+
+
+
+	.	reduce by rule 4
+
+
+state 7:
+
+	PROGRAM : EXPS NEWLINE .  (reduce by rule 1)
+
+
+
+	.	reduce by rule 1
+
+
+state 8:
+
+	EXP : EXP ASSIGN . EXP 
+
+	CONST	shift 6
+	LEFTBRAC	shift 5
+	PRINTLN	shift 4
+	VARIABLE	shift 3
+
+	EXP	goto 16
+
+	.	error
+
+
+state 9:
+
+	EXPS : EXP NEWLINE . EXPS 
+
+	CONST	shift 6
+	LEFTBRAC	shift 5
+	PRINTLN	shift 4
+	VARIABLE	shift 3
+
+	EXP	goto 2
+	EXPS	goto 17
+
+	.	reduce by rule 2
+
+
+state 10:
+
+	EXP : EXP DIV . EXP 
+
+	CONST	shift 6
+	LEFTBRAC	shift 5
+	PRINTLN	shift 4
+	VARIABLE	shift 3
+
+	EXP	goto 18
+
+	.	error
+
+
+state 11:
+
+	EXP : EXP MUL . EXP 
+
+	CONST	shift 6
+	LEFTBRAC	shift 5
+	PRINTLN	shift 4
+	VARIABLE	shift 3
+
+	EXP	goto 19
+
+	.	error
+
+
+state 12:
+
+	EXP : EXP MINUS . EXP 
+
+	CONST	shift 6
+	LEFTBRAC	shift 5
+	PRINTLN	shift 4
+	VARIABLE	shift 3
+
+	EXP	goto 20
+
+	.	error
+
+
+state 13:
+
+	EXP : EXP PLUS . EXP 
+
+	CONST	shift 6
+	LEFTBRAC	shift 5
+	PRINTLN	shift 4
+	VARIABLE	shift 3
+
+	EXP	goto 21
+
+	.	error
+
+
+state 14:
+
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . MUL EXP 
+	EXP : EXP . DIV EXP 
+	EXP : PRINTLN EXP .  (reduce by rule 10)
+	EXP : EXP . ASSIGN EXP 
+
+
+
+	.	reduce by rule 10
+
+
+state 15:
+
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . MUL EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . ASSIGN EXP 
+	EXP : LEFTBRAC EXP . RIGHTBRAC 
+
+	PLUS	shift 13
+	MINUS	shift 12
+	MUL	shift 11
+	DIV	shift 10
+	RIGHTBRAC	shift 22
+	ASSIGN	shift 8
+
+
+	.	error
+
+
+state 16:
+
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . MUL EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . ASSIGN EXP 
+	EXP : EXP ASSIGN EXP .  (reduce by rule 11)
+
+
+
+	.	reduce by rule 11
+
+
+state 17:
+
+	EXPS : EXP NEWLINE EXPS .  (reduce by rule 3)
+
+
+
+	.	reduce by rule 3
+
+
+state 18:
+
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . MUL EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP DIV EXP .  (reduce by rule 9)
+	EXP : EXP . ASSIGN EXP 
+
+	ASSIGN	shift 8
+
+
+	.	reduce by rule 9
+
+
+state 19:
+
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . MUL EXP 
+	EXP : EXP MUL EXP .  (reduce by rule 8)
+	EXP : EXP . DIV EXP 
+	EXP : EXP . ASSIGN EXP 
+
+	ASSIGN	shift 8
+
+
+	.	reduce by rule 8
+
+
+state 20:
+
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP MINUS EXP .  (reduce by rule 7)
+	EXP : EXP . MUL EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . ASSIGN EXP 
+
+	MUL	shift 11
+	DIV	shift 10
+	ASSIGN	shift 8
+
+
+	.	reduce by rule 7
+
+
+state 21:
+
+	EXP : EXP . PLUS EXP 
+	EXP : EXP PLUS EXP .  (reduce by rule 6)
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . MUL EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . ASSIGN EXP 
+
+	MUL	shift 11
+	DIV	shift 10
+	ASSIGN	shift 8
+
+
+	.	reduce by rule 6
+
+
+state 22:
+
+	EXP : LEFTBRAC EXP RIGHTBRAC .  (reduce by rule 12)
+
+
+
+	.	reduce by rule 12
+
+
+state 23:
+
+
+	EOF	accept
+
+
+	.	error
+
+30 of 82 action table entries left after compaction
+12 goto table entries

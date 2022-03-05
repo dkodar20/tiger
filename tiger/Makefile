@@ -22,7 +22,7 @@
 # these programs depend on the following sml files. So I have defined
 # a variable COMMON for this.
 
-COMMON=ast.sml machine.sml
+COMMON=ast.sml
 
 
 # Default rules for lex and yacc
@@ -49,7 +49,7 @@ COMMON=ast.sml machine.sml
 	mlyacc $<
 
 
-all: rp ec
+all: ec
 
 # Usually targets are files that you need to create and the make
 # command will refuse to build if such a file exists in the directory
@@ -64,8 +64,8 @@ clean:
 	rm -f *.lex.sml rp
 	rm -f *.grm.sml *.grm.desc *.grm.sig ec
 
-rp: rp.lex.sml rp.mlb rp.sml ${COMMON}
-	mlton rp.mlb
+# rp: rp.lex.sml rp.mlb rp.sml ${COMMON}
+# 	mlton rp.mlb
 
 ec: ec.sml ec.mlb expr.grm.sml expr.lex.sml ${COMMON} translate.sml
 	mlton ec.mlb
