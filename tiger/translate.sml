@@ -69,4 +69,10 @@ fun compileExpr (Ast.Variable x) = lookup(!map_variable, Atom.atom(x))
 		end
 
 	fun compile [] = [] 
+		| compile (x :: xs) = 
+			(
+				compileExpr x;
+				compile xs;
+				!prog
+			)
 end
