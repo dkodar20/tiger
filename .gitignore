@@ -1,3 +1,9 @@
 # Removing rough working file
 rough/*
 rough
+rp
+ec
+*.lex.sml
+*.grm.sml
+*.grm.desc
+*.grm.sig
