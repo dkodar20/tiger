@@ -53,12 +53,15 @@ languages. Here is the one for our rather humble expression language.
 *)
 
 datatype Expr  = Const of int
+               | Variable of string
                | Op    of Expr * BinOp * Expr
-
+               | Println of Expr
+     
      and BinOp = Plus
                | Minus
                | Mul
                | Div
+               | Assign
 
 (*
 
@@ -91,9 +94,12 @@ integers. For this purpose we define the meaning of an operator
 fun binOpDenote Plus  x y = x + y
   | binOpDenote Minus x y = x - y
   | binOpDenote Mul   x y = x * y
-  | binOpDenote Div   x y = x div y;
+  | binOpDenote Div   x y = x div y
+  | binOpDenote Assign x y = 1
 
 fun exprDenote (Const x)       = x
+  | exprDenote (Variable x)    = 1
+  | exprDenote (Println Expr) = 1
   | exprDenote (Op (x,oper,y)) = binOpDenote oper (exprDenote x) (exprDenote y);
 
 (* Conversion to strings *)
@@ -102,11 +108,12 @@ fun binOpToString Plus  = "+"
   | binOpToString Minus = "-"
   | binOpToString Mul   = "*"
   | binOpToString Div   = "/"
+  | binOpToString Assign = "="
 
 (* Some helper functions *)
 fun plus  a b = Op (a, Plus, b)
 fun minus a b = Op (a, Minus, b)
 fun mul   a b = Op (a, Mul, b)
 fun divi   a b = Op (a, Div, b)
-
+fun assign a b = Op (a, Assign, b)
 end

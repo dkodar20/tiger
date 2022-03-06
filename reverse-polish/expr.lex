@@ -4,7 +4,7 @@
 type lineNo            = int
 type pos               = lineNo  (* The type of Should match with expr.yacc *)
 val  lineRef : pos ref = ref 0   (* reference variable to keep track of position.
-				    Typing not necessary just for clarity *)
+            Typing not necessary just for clarity *)
 
 fun updateLine n      = lineRef := !(lineRef) + n
 
@@ -16,7 +16,7 @@ type lexresult     = (svalue,pos) token
 
 
 fun lineRange l r = "line " ^ l
-				  (*else ("line " ^ Int.toString l ^ "-" ^ Int.toString r)*)
+          (*else ("line " ^ Int.toString l ^ "-" ^ Int.toString r)*)
 fun error (e,l,r) = TextIO.output(TextIO.stdErr, lineRange l r ^ ":" ^ e ^ "\n")
 
 (*
@@ -55,19 +55,24 @@ val newlineCount = List.length o List.filter (fn x => x = #"\n") o String.explod
 %header (functor ExprLexFun(structure Tokens : Expr_TOKENS));
 ws    = [\ \t];
 digit = [0-9];
+variable = [a-z];
 
 %%
 
 "#".*\n       => ( updateLine 1; lex ());
 {ws}+         => ( lex() );
 \n({ws}*\n)*  => ( let val old = !lineRef
-		   in updateLine (newlineCount yytext); Tokens.NEWLINE (old, !lineRef)
-		   end
-		 );
+       in updateLine (newlineCount yytext); Tokens.NEWLINE (old, !lineRef)
+       end
+     );
+
 {digit}+      => ( Tokens.CONST (toInt yytext, !lineRef, !lineRef) );
+{variable}+   => ( Tokens.VARIABLE (yytext, !lineRef,!lineRef));
 "+"           => ( Tokens.PLUS  (!lineRef,!lineRef) );
 "-"           => ( Tokens.MINUS  (!lineRef,!lineRef) );
 "*"           => ( Tokens.MUL (!lineRef,!lineRef) );
 "/"           => ( Tokens.DIV (!lineRef,!lineRef) );
 "("           => ( Tokens.LEFTBRAC (!lineRef,!lineRef) );
 ")"           => ( Tokens.RIGHTBRAC (!lineRef,!lineRef) );
+":="          => ( Tokens.ASSIGN (!lineRef,!lineRef) );
+"print"       => ( Tokens.PRINTLN (!lineRef,!lineRef) );

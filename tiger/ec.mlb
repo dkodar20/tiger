@@ -1,10 +1,11 @@
 $(SML_LIB)/basis/basis.mlb
 $(SML_LIB)/mlyacc-lib/mlyacc-lib.mlb
+$(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
 
 ast.sml         (* the syntax                                   *)
-ir.sml          (* the intermediate representation *)
 mips.sml        (* mips *)
 temp.sml        (* temp *)
+ir.sml          (* the intermediate representation *)
 translate.sml   (* The translate function                       *)
 expr.grm.sig    (* The signature file generated for the grammar *)
 expr.grm.sml    (* The parser                                   *)

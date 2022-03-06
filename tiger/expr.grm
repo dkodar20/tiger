@@ -14,7 +14,7 @@ it is empty *)
     | NEWLINE
     | PRINTLN
     | ASSIGN
-    | VARIABLE
+    | VARIABLE of string
 
 (* The nonterminals of the language *)
 %nonterm EXP     of Ast.Expr
@@ -36,10 +36,10 @@ Operator precedence and associativity. The %left says the operator is
 left associative and the precedence increase as you go down this list.
 
 *)
+%left PRINTLN
+%left ASSIGN
 %left PLUS MINUS  (* + and - are of same precedence *)
 %left DIV MUL     (* higher than + and -, / and * have same precedence *)
-%left ASSIGN
-%left PRINTLN
 
 (* The type that captures position in the input *)
 %pos int
@@ -47,18 +47,18 @@ left associative and the precedence increase as you go down this list.
 %%
 
 PROGRAM : EXPS                 ( EXPS )
-	| EXPS NEWLINE         ( EXPS )
+    | EXPS NEWLINE         ( EXPS )
 
 EXPS    : (* empty *)          ( []                  )
-	| EXP NEWLINE EXPS     ( EXP :: EXPS         )
+    | EXP NEWLINE EXPS     ( EXP :: EXPS         )
 
 EXP     : CONST                             ( Ast.Const CONST       )
         | VARIABLE                          ( Ast.Variable VARIABLE )
+        | PRINTLN EXP                       ( Ast.Println EXP )
         | EXP PLUS EXP                      ( Ast.plus  EXP1 EXP2   )
-    	| EXP MINUS EXP                     ( Ast.minus EXP1 EXP2   )
-    	| EXP MUL   EXP                     ( Ast.mul   EXP1 EXP2   )
+        | EXP MINUS EXP                     ( Ast.minus EXP1 EXP2   )
+        | EXP MUL   EXP                     ( Ast.mul   EXP1 EXP2   )
         | EXP DIV   EXP                     ( Ast.divi   EXP1 EXP2  )
-        | PRINTLN EXP                       ( Ast.println EXP )
         | EXP ASSIGN EXP                    ( Ast.assign EXP1 EXP2 )
         | LEFTBRAC EXP RIGHTBRAC            (EXP)
 
