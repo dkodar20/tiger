@@ -4,14 +4,6 @@ open AtomMap;
 structure Translate =
 struct
 
-(*fun compileExpr (Ast.Const x)         = [Machine.Push x]
-  | compileExpr (Ast.Op (x, oper, y)) = compileExpr y @ compileExpr x @ [Machine.Exec oper];
-
-
-fun compile []        = []
-  | compile (x :: xs) = compileExpr x @ Machine.PrintTop :: compile xs *)
-
-
 val map_variable = ref (empty : Temp.temp map)
 val prog = ref ([] : IR.prog)
 
@@ -22,12 +14,11 @@ fun compileExpr (Ast.Variable x) = lookup(!map_variable, Atom.atom(x))
 			val curr = !Temp.nextTemp : Temp.temp
 		in
 			Temp.nextTemp := curr + 1;
-			(* map_variable := insert (!map_variable, Atom.atom(x), curr); *)
-			prog := !prog @ [IR.instruction (IR.li (curr, x))]; (* To change 2nd argument of IR.Li *)
+			prog := [IR.instruction (IR.li (curr, x))] @ !prog; (* To change 2nd argument of IR.Li *)
 			curr
 		end
 
-	| compileExpr (Ast.Op (Ast.Variable x, Assign, y)) =
+	| compileExpr (Ast.Op (Ast.Variable x, Ast.Assign, y)) =
 		let
 			val temp_map = !map_variable
 			val curr = !Temp.nextTemp : Temp.temp
@@ -37,42 +28,46 @@ fun compileExpr (Ast.Variable x) = lookup(!map_variable, Atom.atom(x))
 				map_variable := insert (temp_map, Atom.atom(x), curr)
 			else
 				map_variable := temp_map;
-			prog := !prog @ [IR.instruction (IR.li (compileExpr (Ast.Variable x), compileExpr y))];
+			prog := [IR.instruction (IR.move (compileExpr (Ast.Variable x), compileExpr y))] @ !prog;
 			lookup(!map_variable, Atom.atom(x))
 		end
 
-	| compileExpr (Ast.Op (x, Plus, y)) =
+	| compileExpr (Ast.Op (x, Ast.Plus, y)) =
 		let
 			val curr = !Temp.nextTemp : Temp.temp
 		in
 			Temp.nextTemp := (curr + 1);
-			prog := !prog @ [IR.instruction (IR.add (curr, compileExpr x, compileExpr y))];
+			prog := [IR.instruction (IR.add (curr, compileExpr x, compileExpr y))] @ !prog;
 			curr
 		end
 
-	| compileExpr (Ast.Op (x, Mul, y)) =
+	| compileExpr (Ast.Op (x, Ast.Mul, y)) =
 		let
 			val curr = !Temp.nextTemp : Temp.temp
 		in
 			Temp.nextTemp := (curr + 1);
-			prog := !prog @ [IR.instruction (IR.mul (curr, compileExpr x, compileExpr y))];
+			prog := [IR.instruction (IR.mul (curr, compileExpr x, compileExpr y))] @ !prog;
 			curr
 		end
 	
-	| compileExpr (Ast.Op (x, Minus, y)) =
+	| compileExpr (Ast.Op (x, Ast.Minus, y)) =
 		let
 			val curr = !Temp.nextTemp : Temp.temp
 		in
 			Temp.nextTemp := (curr + 1);
-			prog := !prog @ [IR.instruction (IR.sub (curr, compileExpr x, compileExpr y))];
+			prog := [IR.instruction (IR.sub (curr, compileExpr x, compileExpr y))] @ !prog;
 			curr
 		end
 
-	fun compile [] = [] 
-		| compile (x :: xs) = 
-			(
-				compileExpr x;
-				compile xs;
-				!prog
-			)
+val prog_final = ref ([] : IR.prog)
+
+fun compile [] = [] 
+	| compile (x :: xs) = 
+		(	
+			compileExpr x;
+			prog_final := !prog_final @ rev (!prog); prog := [];
+			compile xs;
+			!prog_final
+		)
+
 end

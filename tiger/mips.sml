@@ -10,7 +10,7 @@ structure MIPS = struct
 				  s4    | s5 | s6 | s7 |
 				  t8    | t9 | k0 | k1 |
 				  gp    | sp | fp | ra |
-				  Imm of int
+				  Imm of int | overflow
 
 	(* The instruction *)
 	datatype  ('l,'t) inst = 
@@ -192,6 +192,7 @@ structure MIPS = struct
 	| prReg fp   = "$fp"
 	| prReg ra   = "$ra"
 	| prReg (Imm i) = Int.toString i
+	| prReg oveflow = "Stack Overflow!"
 
 	fun prArg1 (a : reg, b : reg, c : reg) = (prReg a) ^ ", " ^ (prReg b) ^ ", " ^ (prReg c)
 	fun prArg2 (a : reg, b : reg, c : string) = (prReg a) ^ ", " ^ (prReg b) ^ ", " ^ c

@@ -7,9 +7,10 @@ structure IR : sig
   val mul : Temp.temp * Temp.temp * Temp.temp -> inst
   val sub : Temp.temp * Temp.temp * Temp.temp -> inst
   val li : Temp.temp * Temp.temp -> inst
-  (* val ppInst : inst -> string
-  val ppStmt : stmt -> string
-  val pp     : prog -> string *)
+  val move : Temp.temp * Temp.temp -> inst
+  (* val ppInst : inst -> string *)
+  val ppStmt : 'stmt -> string
+  (* val pp     : prog -> string *)
 end = struct
     type inst = (string, Temp.temp) MIPS.inst
     type stmt = (string, Temp.temp) MIPS.stmt
@@ -17,7 +18,9 @@ end = struct
     fun instruction a = MIPS.Instruction (a)
     fun add (a, b, c) = (MIPS.Add (a, b, c))
     fun mul (a, b, c) = (MIPS.Mul (a, b, c))
-    fun sub (a, b, c) = (MIPS.Mul (a, b, c))
+    fun sub (a, b, c) = (MIPS.Sub (a, b, c))
     fun li (a, b) = MIPS.Li (a, b)
+    fun move (a, b) = MIPS.Move (a, b)
+    fun ppStmt _ = "instruction"
 end
     
