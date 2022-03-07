@@ -1,16 +1,16 @@
 structure IR : sig
-  type inst = (string, Temp.temp) MIPS.inst
-  type stmt = (string, Temp.temp) MIPS.stmt
-  type prog = stmt list
-  val instruction : inst -> stmt
-  val add : Temp.temp * Temp.temp * Temp.temp -> inst
-  val mul : Temp.temp * Temp.temp * Temp.temp -> inst
-  val sub : Temp.temp * Temp.temp * Temp.temp -> inst
-  val li : Temp.temp * Temp.temp -> inst
-  val move : Temp.temp * Temp.temp -> inst
-  (* val ppInst : inst -> string *)
-  val ppStmt : 'stmt -> string
-  (* val pp     : prog -> string *)
+	type inst = (string, Temp.temp) MIPS.inst
+	type stmt = (string, Temp.temp) MIPS.stmt
+	type prog = stmt list
+	val instruction : inst -> stmt
+	val add : Temp.temp * Temp.temp * Temp.temp -> inst
+	val mul : Temp.temp * Temp.temp * Temp.temp -> inst
+	val sub : Temp.temp * Temp.temp * Temp.temp -> inst
+	val li : Temp.temp * Temp.temp -> inst
+	val move : Temp.temp * Temp.temp -> inst
+	(* val ppInst : inst -> string *)
+	val ppStmt : 'stmt -> string
+	(* val pp     : prog -> string *)
 end = struct
     type inst = (string, Temp.temp) MIPS.inst
     type stmt = (string, Temp.temp) MIPS.stmt
