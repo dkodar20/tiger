@@ -3,14 +3,14 @@ $(SML_LIB)/mlyacc-lib/mlyacc-lib.mlb
 $(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
 
 ast.sml         (* the syntax                                   *)
-mips.sml        (* mips *)
+mips/mips.sml        (* mips *)
 temp.sml        (* temp *)
 ir.sml          (* the intermediate representation *)
 translate.sml   (* The translate function                       *)
 register-allocation.sml (* register allocation *)
 machine.sml     (* For printing *)
-expr.grm.sig    (* The signature file generated for the grammar *)
-expr.grm.sml    (* The parser                                   *)
-expr.lex.sml    (* The lexer for the machine                    *)
+lexer/expr.grm.sig    (* The signature file generated for the grammar *)
+lexer/expr.lex.sml    (* The lexer for the machine                    *)
+lexer/expr.grm.sml    (* The parser                                   *)
 
 ec.sml

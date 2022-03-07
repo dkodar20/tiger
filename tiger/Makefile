@@ -23,6 +23,7 @@
 # a variable COMMON for this.
 
 COMMON=ast.sml
+TEST_DIR=tests
 
 
 # Default rules for lex and yacc
@@ -61,15 +62,15 @@ all: ec
 .PHONY: all clean test
 
 clean:
-	rm -f *.lex.sml rp
-	rm -f *.grm.sml *.grm.desc *.grm.sig ec
+	rm -rf lexer/*.lex.sml
+	rm -rf lexer/*.grm.sml lexer/*.grm.desc lexer/*.grm.sig ec
 
 # rp: rp.lex.sml rp.mlb rp.sml ${COMMON}
 # 	mlton rp.mlb
 
-ec: ec.sml ec.mlb expr.grm.sml expr.lex.sml ${COMMON} translate.sml
+ec: ec.sml ec.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} translate.sml
 	mlton ec.mlb
 
 
 test: all
-	${CURDIR}/ec test.expr
+	${CURDIR}/ec ${TEST_DIR}/test.expr
