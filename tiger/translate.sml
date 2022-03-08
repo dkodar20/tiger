@@ -14,7 +14,7 @@ fun compileExpr (Ast.Variable x) = lookup(!map_variable, Atom.atom(x))
 			val curr = !Temp.nextTemp : Temp.temp
 		in
 			Temp.nextTemp := curr + 1;
-			prog := [IR.instruction (IR.li (curr, x))] @ !prog; (* To change 2nd argument of IR.Li *)
+			prog := [IR.instruction (IR.li (curr, x))] @ !prog;
 			curr
 		end
 
