@@ -10,6 +10,7 @@ In lab 2 -
 
 ## Mar 10
 Forgot to update this again :(
+
 In lab 3 -
 - Tiger compiler was made to handle a simple language called "Tiger" which converts it into MIPS
 - The output is generated in out.mips file and can be run using `make spim` command
