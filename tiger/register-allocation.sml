@@ -34,6 +34,9 @@ struct
         registerAlloc (MIPS.Instruction (MIPS.Li (x, y)) :: xs) = [MIPS.Instruction (MIPS.Li (to_reg x, MIPS.Imm (y)))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Instruction (MIPS.Move (x, y)) :: xs) = [MIPS.Instruction (MIPS.Move (to_reg x, to_reg y))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Instruction (MIPS.Syscall) :: xs) = [MIPS.Instruction (MIPS.Syscall)] @ (registerAlloc xs) |
+        registerAlloc (MIPS.Instruction (MIPS.Bgt (x, y, z)) :: xs) = [MIPS.Instruction (MIPS.Bgt (to_reg x, MIPS.Imm(y), z))] @ (registerAlloc xs) |
+        registerAlloc (MIPS.Instruction (MIPS.Addi (x, y, z)) :: xs) = [MIPS.Instruction (MIPS.Addi (to_reg x, to_reg y, MIPS.Imm (z)))] @ (registerAlloc xs) |
+        registerAlloc (MIPS.Instruction (MIPS.J (x)) :: xs) = [MIPS.Instruction (MIPS.J (x))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Directive (MIPS.Data (x)) :: xs) = [MIPS.Directive (MIPS.Data (x))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Directive (MIPS.Text (x)) :: xs) = [MIPS.Directive (MIPS.Text (x))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Directive (MIPS.Globl (x)) :: xs) = [MIPS.Directive (MIPS.Globl (x))] @ (registerAlloc xs) |

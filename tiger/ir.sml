@@ -11,6 +11,9 @@ structure IR : sig
 	val li : Temp.temp * Temp.temp -> inst
 	val move : Temp.temp * Temp.temp -> inst
 	val syscall : 'a -> inst
+	val j : string -> inst
+	val bgt : Temp.temp * Temp.temp * string -> inst
+	val addi : Temp.temp * Temp.temp * Temp.temp -> inst
 	val data : string -> dir
 	val text : string -> dir
 	val globl : string -> dir
@@ -31,6 +34,9 @@ end = struct
     fun li (a, b) = MIPS.Li (a, b)
     fun move (a, b) = MIPS.Move (a, b)
 	fun syscall _ = MIPS.Syscall
+	fun j x = MIPS.J (x)
+	fun bgt (a, b, c) = MIPS.Bgt (a, b, c)
+	fun addi (a, b, c) = MIPS.Addi (a, b, c) 
 	fun data x = MIPS.Data (x)
 	fun text x = MIPS.Text (x)
 	fun globl x = MIPS.Globl (x)

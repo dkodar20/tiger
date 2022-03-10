@@ -68,6 +68,10 @@ variable = [a-z];
 
 {digit}+      => ( Tokens.CONST (toInt yytext, !lineRef, !lineRef) );
 "print"       => ( Tokens.PRINTLN (!lineRef,!lineRef) );
+"for"         => ( Tokens.FOR (!lineRef,!lineRef) );
+"do\n"          => ( Tokens.DO (!lineRef,!lineRef) );
+"done;"        => ( Tokens.DONE (!lineRef,!lineRef) );
+"to"          => ( Tokens.TO (!lineRef,!lineRef) );
 {variable}+   => ( Tokens.VARIABLE (yytext, !lineRef,!lineRef));
 "+"           => ( Tokens.PLUS  (!lineRef,!lineRef) );
 "-"           => ( Tokens.MINUS  (!lineRef,!lineRef) );
@@ -76,3 +80,4 @@ variable = [a-z];
 "("           => ( Tokens.LEFTBRAC (!lineRef,!lineRef) );
 ")"           => ( Tokens.RIGHTBRAC (!lineRef,!lineRef) );
 ":="          => ( Tokens.ASSIGN (!lineRef,!lineRef) );
+"="          => ( Tokens.ASSIGNFOR (!lineRef,!lineRef) );

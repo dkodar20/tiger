@@ -8,6 +8,14 @@ add $t1, $t2, $t3
 move $t0, $t1
 mul $t5, $t0, $t0
 move $t4, $t5
+loop: 
+bgt $t6, 5, continue
+move $a0, $t6
+li $v0, 1
+syscall
+addi $t6, $t6, 1
+j loop
+continue: 
 move $a0, $t4
 li $v0, 1
 syscall

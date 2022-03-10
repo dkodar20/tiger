@@ -7,6 +7,10 @@ struct
 val map_variable = ref (empty : Temp.temp map)
 val prog = ref ([] : IR.prog)
 
+val prog_final_for = ref ([] : IR.prog)
+
+
+
 fun compileExpr (Ast.Variable x) = lookup(!map_variable, Atom.atom(x))
 	
 	| compileExpr (Ast.Const x) = 
@@ -80,6 +84,24 @@ fun compileDir _ =
 	end
 
 fun compileRev [] = [] 
+	| compileRev (Ast.For (a, b, c, d) :: xs) =
+		let
+			val old = lookup(!map_variable, Atom.atom(a))
+			val curr = !Temp.nextTemp : Temp.temp
+		in
+			Temp.nextTemp := (curr + 1);
+			map_variable := insert (!map_variable, Atom.atom(a), curr);
+			prog_final := !prog_final @ [IR.directive (IR.label ("loop"))];
+			prog_final := !prog_final @ [IR.instruction (IR.bgt (curr, c - b, "continue"))];
+			compileRev d;
+			prog_final := !prog_final @ [IR.instruction (IR.addi (curr, curr, 1))];
+			prog_final := !prog_final @ [IR.instruction (IR.j ("loop"))];
+			prog_final := !prog_final @ [IR.directive (IR.label ("continue"))];
+			map_variable := insert (!map_variable, Atom.atom(a), old);
+			compileRev xs;
+			!prog_final
+		end
+
 	| compileRev (x :: xs) = 
 		(	
 			compileExpr x;

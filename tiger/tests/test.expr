@@ -1,4 +1,7 @@
 # This is a test file for input to the expression compiler ec.
 x := 40 + 20
 y := x * x
+for x = 0 to 5 do
+print x
+done;
 print y

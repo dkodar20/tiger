@@ -56,6 +56,7 @@ datatype Expr  = Const of int
                | Variable of string
                | Op    of Expr * BinOp * Expr
                | Println of Expr
+               | For of string * int * int * (Expr list)
      
      and BinOp = Plus
                | Minus
@@ -69,4 +70,5 @@ fun minus a b = Op (a, Minus, b)
 fun mul   a b = Op (a, Mul, b)
 fun divi   a b = Op (a, Div, b)
 fun assign a b = Op (a, Assign, b)
+fun for a b c d = For (a, b, c, d)
 end
