@@ -66,6 +66,6 @@ EXP     : CONST                             ( Ast.Const CONST       )
         | EXP DIV   EXP                     ( Ast.divi   EXP1 EXP2  )
         | EXP ASSIGN EXP                    ( Ast.assign EXP1 EXP2 )
         | LEFTBRAC EXP RIGHTBRAC            ( EXP )
-        | FOR VARIABLE ASSIGNFOR CONST TO CONST DO EXPS DONE (Ast.for VARIABLE CONST1 CONST2 EXPS)
+        | FOR VARIABLE ASSIGNFOR CONST TO CONST NEWLINE DO EXPS DONE (Ast.for VARIABLE CONST1 CONST2 EXPS)
 
 (* (e1 / e2) *)

@@ -16,6 +16,9 @@ syscall
 addi $t6, $t6, 1
 j loop
 continue: 
+move $a0, $t0
+li $v0, 1
+syscall
 move $a0, $t4
 li $v0, 1
 syscall
