@@ -58,16 +58,47 @@ fun compileExpr (Ast.Variable x) = lookup(!map_variable, Atom.atom(x))
 			prog := [IR.instruction (IR.sub (curr, compileExpr x, compileExpr y))] @ !prog;
 			curr
 		end
+	
+	| compileExpr (Ast.Println x) = 
+		let
+			val curr = !Temp.nextTemp : Temp.temp
+		in
+			prog := [IR.instruction (IR.syscall()), IR.instruction(IR.li (~5, 1)), IR.instruction (IR.move (~1, compileExpr x))] @ !prog;
+			curr
+		end
 
 val prog_final = ref ([] : IR.prog)
 
-fun compile [] = [] 
-	| compile (x :: xs) = 
+fun compileDir _ = 
+	let
+		val x = IR.directive (IR.data (""))
+		val y = IR.directive (IR.text (""))
+		val z = IR.directive (IR.globl ("main"))
+		val l = IR.directive (IR.label ("main"))
+	in
+		prog_final := [x, y, z, l] @ !prog_final
+	end
+
+fun compileRev [] = [] 
+	| compileRev (x :: xs) = 
 		(	
 			compileExpr x;
 			prog_final := !prog_final @ rev (!prog); prog := [];
-			compile xs;
+			compileRev xs;
 			!prog_final
 		)
+
+fun compileExit _ = 
+	(
+		prog_final := !prog_final @ [IR.instruction(IR.li (~5, 10)), IR.instruction (IR.syscall())]
+	)
+
+fun compile x =
+	(
+		compileDir ();
+		compileRev (x);
+		compileExit();
+		!prog_final
+	)
 
 end

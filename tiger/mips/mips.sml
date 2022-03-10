@@ -138,11 +138,12 @@ structure MIPS = struct
 					 Kdata of string |
 					 Ktext of string |
 					 Space of int |
-					 Text of string
+					 Text of string |
 					 (*Word of string array*)
+					 Label of string
 
 	(* The instructions and assembler directives *)
-	datatype ('l,'t) stmt = Instruction of ('l, 't) inst | Dir of directive
+	datatype ('l,'t) stmt = Instruction of ('l, 't) inst | Directive of directive
 
 	(* Print the instructions when the labels are strings and
 	registers are actual MIPS registers
@@ -158,6 +159,7 @@ structure MIPS = struct
 	  | prDir (Ktext arg) = ".ktext " ^ arg
 	  | prDir (Space arg) = ".space " ^ (Int.toString arg)
 	  | prDir (Text arg) = ".text " ^ arg
+	  | prDir (Label arg) = arg ^ ": "
 
 	fun prReg zero = "$zero"
 	| prReg at   = "$at"
@@ -201,6 +203,7 @@ structure MIPS = struct
 	fun prArg5 (a : reg) = prReg(a)
 	fun prArg6 (a : string) = a
 
+	(* Add (a0, a1, a2) = "add $a0, $a1, $a2" *)
 	fun prInst (Add arg) = "add " ^ (prArg1 arg)
 		 | prInst (Addi arg) = "addi " ^ (prArg1 arg)
 		 | prInst (Addu arg) = "addu " ^ (prArg1 arg)
@@ -311,7 +314,7 @@ structure MIPS = struct
 		 | prInst (Break arg) = "break " ^ (Int.toString arg)
 		 | prInst (Nop) = "nop"
 
-	fun     prStmt (Dir arg) = prDir arg
+	fun     prStmt (Directive arg) = prDir arg
 	  |  prStmt (Instruction arg) = prInst arg
 
 	(* actual code that SPIM can understand is (string, reg) inst *)

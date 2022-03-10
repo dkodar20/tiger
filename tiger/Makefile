@@ -59,7 +59,7 @@ all: ec
 # date it will be built. A phony target with no dependency is always
 # out of date which means it will always be run.
 
-.PHONY: all clean test
+.PHONY: all clean test spim
 
 clean:
 	rm -rf lexer/*.lex.sml
@@ -73,4 +73,7 @@ ec: ec.sml ec.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} translate.sml
 
 
 test: all
-	${CURDIR}/ec ${TEST_DIR}/test.expr
+	${CURDIR}/ec ${TEST_DIR}/test.expr > out.mips
+
+spim: test
+	spim -f ${CURDIR}/out.mips
