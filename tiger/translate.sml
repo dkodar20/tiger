@@ -7,10 +7,6 @@ struct
 val map_variable = ref (empty : Temp.temp map)
 val prog = ref ([] : IR.prog)
 
-val prog_final_for = ref ([] : IR.prog)
-
-
-
 fun compileExpr (Ast.Variable x) = lookup(!map_variable, Atom.atom(x))
 	
 	| compileExpr (Ast.Const x) = 
