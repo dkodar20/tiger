@@ -4,6 +4,8 @@ y := x * x
 for x = 0 to 5
 do
     print x
+    y := 2
+    print y
 done;
 print x
 print y

@@ -24,10 +24,10 @@ fun compileExpr (Ast.Variable x) = lookup(!map_variable, Atom.atom(x))
 			val curr = !Temp.nextTemp : Temp.temp
 		in
 			Temp.nextTemp := curr + 1;
-			if find(temp_map, Atom.atom(x)) = NONE then
-				map_variable := insert (temp_map, Atom.atom(x), curr)
-			else
-				map_variable := temp_map;
+			(* if find(temp_map, Atom.atom(x)) = NONE then *)
+			map_variable := insert (temp_map, Atom.atom(x), curr);
+			(* else *)
+				(* map_variable := temp_map; *)
 			prog := [IR.instruction (IR.move (compileExpr (Ast.Variable x), compileExpr y))] @ !prog;
 			lookup(!map_variable, Atom.atom(x))
 		end
@@ -82,7 +82,7 @@ fun compileDir _ =
 fun compileRev [] = [] 
 	| compileRev (Ast.For (a, b, c, d) :: xs) =
 		let
-			val old = lookup(!map_variable, Atom.atom(a))
+			val old = !map_variable
 			val curr = !Temp.nextTemp : Temp.temp
 		in
 			Temp.nextTemp := (curr + 1);
@@ -93,7 +93,7 @@ fun compileRev [] = []
 			prog_final := !prog_final @ [IR.instruction (IR.addi (curr, curr, 1))];
 			prog_final := !prog_final @ [IR.instruction (IR.j ("loop"))];
 			prog_final := !prog_final @ [IR.directive (IR.label ("continue"))];
-			map_variable := insert (!map_variable, Atom.atom(a), old);
+			map_variable := old;
 			compileRev xs;
 			!prog_final
 		end
