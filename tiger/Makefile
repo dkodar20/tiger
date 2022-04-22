@@ -68,9 +68,8 @@ clean:
 # rp: rp.lex.sml rp.mlb rp.sml ${COMMON}
 # 	mlton rp.mlb
 
-ec: ec.sml ec.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} translate.sml
+ec: ec.sml ec.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} translate.sml basic-blocks.sml
 	mlton ec.mlb
-
 
 test: all
 	${CURDIR}/ec ${TEST_DIR}/test.expr > out.mips
