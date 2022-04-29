@@ -74,5 +74,8 @@ ec: ec.sml ec.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} translate.sml 
 test: all
 	${CURDIR}/ec ${TEST_DIR}/test.expr > out.mips
 
+graph: graph.sml
+	smlnj graph.sml
+
 spim: test
 	spim -f ${CURDIR}/out.mips

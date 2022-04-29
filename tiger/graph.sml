@@ -1,14 +1,14 @@
 signature GRAPH = sig
 
-type node
-type 'a graph
+	type node
+	type 'a graph
 
 (*
 	Create a new node in the graph
 	This operation is not a pure function.
 *)
-(*val empty   : unit -> 'a graph*)
-(*val newNode : 'a graph -> 'a  -> node*)
+	val empty   : unit -> 'a graph
+	val newNode : 'a graph -> 'a  -> node
 
 (* If the data structure was supposed to be persistent the definition
 	of new will not be of this form
@@ -18,7 +18,7 @@ type 'a graph
 *)
 
 
-(*val addEdge : (node * node) -> unit*)
+val addEdge : (node * node) -> unit
 
 (* addEdge (a,b) should add and edge starting from a to b *)
 
@@ -31,19 +31,18 @@ type 'a graph
 
 (* you might want functions that go over all the nodes
 
-maps, folds etc
-*)
+maps, folds etc *)
+
 end
 
 structure Graph :> GRAPH = struct
 	type node = word
 
 
-
 	structure NodeHashKey : HASH_KEY = struct
 		type hash_key = node
 		fun  hashVal w = w
-		fun  sameKey (w1,w2) = w1 = w2
+		fun  sameKey (w1,w2) = (w1 = w2)
 	end
 
 	structure NodeSet = HashSetFn (NodeHashKey)
@@ -51,18 +50,29 @@ structure Graph :> GRAPH = struct
 	type nodeSet = NodeSet.set
 
 	type 'a graph = { labels : (node, 'a)  HashTable.hash_table,
-		(* edges *)
 		successors   : (node, nodeSet) HashTable.hash_table,
 		predecessors : (node, nodeSet) HashTable.hash_table,
 		nextNode : node ref
 	}
+	
 
-(*	fun empty () = {  labels = HastTable.mkTable 
-							successors = HasTable.mkTable ....
-							nextNode   = ref (Word.fromInt 0)
+	fun empty () = {  	labels = HashTable.mkTable (NodeHashKey.hashVal, NodeHashKey.sameKey) (50, Fail "not found"),
+						successors = HashTable.mkTable (NodeHashKey.hashVal, NodeHashKey.sameKey) (50, Fail "not found"),
+						predecessors = HashTable.mkTable (NodeHashKey.hashVal, NodeHashKey.sameKey) (50, Fail "not found"),
+						nextNode   = ref (Word.fromInt 0)
 			}
-*)
-	(*fun new g a = .....*)
+	
+
+	fun newNode (g : ('a graph)) a =
+		let
+			val n = !(#nextNode g)
+		in
+			HashTable.insert (#labels g) (n, a);
+			HashTable.insert (#successors g) (n, NodeSet.mkEmpty 50);
+			HashTable.insert (#predecessors g) (n, NodeSet.mkEmpty 50);
+			#nextNode g := n + 0w1;
+			n
+		end
 
 
 
