@@ -14,20 +14,19 @@ signature GRAPH = sig
 	of new will not be of this form
 
 	addNode : graph -> graph * node
-	addEdge : graph -> node * node -> graph
 *)
 
 
-val addEdge : (node * node) -> unit
+val addEdge : 'a graph -> (node * node) -> unit
 
 (* addEdge (a,b) should add and edge starting from a to b *)
 
-(*val succ    : 'a graph -> node -> node list*)
-(*val pred    : 'a graph -> node -> node list*)
-(*val label   : 'a graph -> node -> 'a*)
+val succ    : 'a graph -> node -> node list
+val pred    : 'a graph -> node -> node list
+val label   : 'a graph -> node -> 'a
 
-(*val clear   : 'a graph -> unit*)
-(*val all     : 'a graph -> node list*)
+val clear   : 'a graph -> unit
+val all     : 'a graph -> node list
 
 (* you might want functions that go over all the nodes
 
@@ -74,6 +73,29 @@ structure Graph :> GRAPH = struct
 			n
 		end
 
+	fun addEdge (g : 'a graph) ((a, b) : node * node) =
+		let
+			val set_a = (HashTable.lookup (#successors g) a)
+			val set_b = (HashTable.lookup (#successors g) a)
+		in
+			NodeSet.add (set_a, b);
+			NodeSet.add (set_b, a)
+		end
+	
+	fun succ (g : 'a graph) (n : node) = NodeSet.listItems (HashTable.lookup (#successors g) n)
+	fun pred (g : 'a graph) (n : node) = NodeSet.listItems (HashTable.lookup (#predecessors g) n)
+	fun label (g : 'a graph) (n : node) = HashTable.lookup (#labels g) n
 
+	fun clear (g : 'a graph) = (
+		HashTable.clear (#labels g);
+		HashTable.clear (#successors g);
+		HashTable.clear (#predecessors g);
+		(#nextNode g) := Word.fromInt 0
+	)
+
+	fun all_helper ((a, b) :: xs : ('a * 'b) list) = [a] @ (all_helper xs) |
+		all_helper ([] : ('a * 'b) list) = ([] : 'a list)
+
+	fun all (g : 'a graph) = all_helper (HashTable.listItemsi (#labels g))
 
 end
