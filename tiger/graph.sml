@@ -28,10 +28,6 @@ val label   : 'a graph -> node -> 'a
 val clear   : 'a graph -> unit
 val all     : 'a graph -> node list
 
-(* you might want functions that go over all the nodes
-
-maps, folds etc *)
-
 end
 
 structure Graph :> GRAPH = struct

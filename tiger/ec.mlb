@@ -13,5 +13,5 @@ lexer/expr.grm.sig    (* The signature file generated for the grammar *)
 lexer/expr.lex.sml    (* The lexer for the machine                    *)
 lexer/expr.grm.sml    (* The parser                                   *)
 basic-blocks.sml (* Basic blocks file *)
-graph.sml (* Graphs for compiler *)
+(* graph.sml (* Graphs for compiler *) *)
 ec.sml
