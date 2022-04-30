@@ -9,6 +9,7 @@ structure IR : sig
 	val mul : Temp.temp * Temp.temp * Temp.temp -> inst
 	val sub : Temp.temp * Temp.temp * Temp.temp -> inst
 	val li : Temp.temp * Temp.temp -> inst
+	val la : Temp.temp * string -> inst
 	val move : Temp.temp * Temp.temp -> inst
 	val syscall : 'a -> inst
 	val j : string -> inst
@@ -16,6 +17,7 @@ structure IR : sig
 	val addi : Temp.temp * Temp.temp * Temp.temp -> inst
 	val data : string -> dir
 	val text : string -> dir
+	val asciiz: string -> dir
 	val globl : string -> dir
 	val label : string -> dir
 	(* val ppInst : inst -> string *)
@@ -32,6 +34,7 @@ end = struct
     fun mul (a, b, c) = (MIPS.Mul (a, b, c))
     fun sub (a, b, c) = (MIPS.Sub (a, b, c))
     fun li (a, b) = MIPS.Li (a, b)
+    fun la (a, b) = MIPS.La (a, b)
     fun move (a, b) = MIPS.Move (a, b)
 	fun syscall _ = MIPS.Syscall
 	fun j x = MIPS.J (x)
@@ -39,6 +42,7 @@ end = struct
 	fun addi (a, b, c) = MIPS.Addi (a, b, c) 
 	fun data x = MIPS.Data (x)
 	fun text x = MIPS.Text (x)
+	fun asciiz x = MIPS.Asciiz (x)
 	fun globl x = MIPS.Globl (x)
 	fun label x = MIPS.Label (x)
     fun ppStmt _ = "instruction"

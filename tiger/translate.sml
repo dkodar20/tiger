@@ -64,6 +64,7 @@ fun compileExpr (Ast.Variable x) = lookup(!map_variable, Atom.atom(x))
 			val curr = !Temp.nextTemp : Temp.temp
 		in
 			prog := [IR.instruction (IR.syscall()), IR.instruction(IR.li (~5, 1)), IR.instruction (IR.move (~1, compileExpr x))] @ !prog;
+			prog := [IR.instruction (IR.syscall()), IR.instruction(IR.li (~5, 4)), IR.instruction (IR.la (~1, "newline"))] @ !prog;			
 			curr
 		end
 
@@ -71,12 +72,14 @@ val prog_final = ref ([] : IR.prog)
 
 fun compileDir _ = 
 	let
-		val x = IR.directive (IR.data (""))
-		val y = IR.directive (IR.text (""))
-		val z = IR.directive (IR.globl ("main"))
-		val l = IR.directive (IR.label ("main"))
+		val a = IR.directive (IR.data (""))
+		val b = IR.directive (IR.label ("newline"))
+		val c = IR.directive (IR.asciiz ("\"\\n\""))
+		val d = IR.directive (IR.text (""))
+		val e = IR.directive (IR.globl ("main"))
+		val f = IR.directive (IR.label ("main"))
 	in
-		prog_final := [x, y, z, l] @ !prog_final
+		prog_final := [a, b, c, d, e, f] @ !prog_final
 	end
 
 fun compileRev [] = [] 

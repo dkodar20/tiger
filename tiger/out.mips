@@ -1,4 +1,6 @@
 .data 
+newline: 
+.asciiz "\n"
 .text 
 .globl main
 main: 
@@ -6,26 +8,40 @@ li $t2, 40
 li $t3, 20
 add $t1, $t2, $t3
 move $t0, $t1
-mul $t5, $t0, $t0
+mul $t6, $t0, $t0
+li $t7, 20
+add $t5, $t6, $t7
 move $t4, $t5
 loop: 
-bgt $t6, 5, continue
-move $a0, $t6
+bgt $t8, 5, continue
+move $a0, $t8
 li $v0, 1
 syscall
-li $t8, 2
-move $t7, $t8
-move $a0, $t7
+la $a0, newline
+li $v0, 4
+syscall
+li $s0, 2
+move $t9, $s0
+move $a0, $t9
 li $v0, 1
 syscall
-addi $t6, $t6, 1
+la $a0, newline
+li $v0, 4
+syscall
+addi $t8, $t8, 1
 j loop
 continue: 
 move $a0, $t0
 li $v0, 1
 syscall
+la $a0, newline
+li $v0, 4
+syscall
 move $a0, $t4
 li $v0, 1
+syscall
+la $a0, newline
+li $v0, 4
 syscall
 li $v0, 10
 syscall

@@ -32,6 +32,7 @@ struct
         registerAlloc (MIPS.Instruction (MIPS.Sub (x, y, z)) :: xs) = [MIPS.Instruction (MIPS.Sub (to_reg x, to_reg y, to_reg z))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Instruction (MIPS.Mul (x, y, z)) :: xs) = [MIPS.Instruction (MIPS.Mul (to_reg x, to_reg y, to_reg z))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Instruction (MIPS.Li (x, y)) :: xs) = [MIPS.Instruction (MIPS.Li (to_reg x, MIPS.Imm (y)))] @ (registerAlloc xs) |
+        registerAlloc (MIPS.Instruction (MIPS.La (x, y)) :: xs) = [MIPS.Instruction (MIPS.La (to_reg x, y))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Instruction (MIPS.Move (x, y)) :: xs) = [MIPS.Instruction (MIPS.Move (to_reg x, to_reg y))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Instruction (MIPS.Syscall) :: xs) = [MIPS.Instruction (MIPS.Syscall)] @ (registerAlloc xs) |
         registerAlloc (MIPS.Instruction (MIPS.Bgt (x, y, z)) :: xs) = [MIPS.Instruction (MIPS.Bgt (to_reg x, MIPS.Imm(y), z))] @ (registerAlloc xs) |
@@ -39,6 +40,7 @@ struct
         registerAlloc (MIPS.Instruction (MIPS.J (x)) :: xs) = [MIPS.Instruction (MIPS.J (x))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Directive (MIPS.Data (x)) :: xs) = [MIPS.Directive (MIPS.Data (x))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Directive (MIPS.Text (x)) :: xs) = [MIPS.Directive (MIPS.Text (x))] @ (registerAlloc xs) |
+        registerAlloc (MIPS.Directive (MIPS.Asciiz (x)) :: xs) = [MIPS.Directive (MIPS.Asciiz (x))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Directive (MIPS.Globl (x)) :: xs) = [MIPS.Directive (MIPS.Globl (x))] @ (registerAlloc xs) |
         registerAlloc (MIPS.Directive (MIPS.Label (x)) :: xs) = [MIPS.Directive (MIPS.Label (x))] @ (registerAlloc xs)
 
