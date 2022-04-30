@@ -22,7 +22,7 @@
 # these programs depend on the following sml files. So I have defined
 # a variable COMMON for this.
 
-COMMON=ast.sml
+COMMON=lib/ast.sml
 TEST_DIR=tests
 
 
@@ -68,7 +68,7 @@ clean:
 # rp: rp.lex.sml rp.mlb rp.sml ${COMMON}
 # 	mlton rp.mlb
 
-ec: ec.sml ec.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} translate.sml basic-blocks.sml
+ec: src/ec.sml ec.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} src/translate.sml
 	mlton ec.mlb
 
 test: all
