@@ -15,4 +15,15 @@
 - The tiger compiler is made for compiling the `tiger` language. 
 - The syntax for the tiger language can be found in _test.expr_ file. 
 - The tiger language supports the following features -
-    - Add
+    - Variable assignments
+    - Variable manipulation using aithmetic operations including addition, multiplication and subtraction
+    - Parantheses support
+    - Variables can be assigned and updated using parenthesized expressions involving other vairables and constants
+    - Supports `for` loops. Features in `for` loop -
+        - Local declaration of statements
+        - When a variable declared outside the for loop is reassigned a value inside the for loop then after the for loop ends, the older value is stored back in the variable again
+    - Printing of expressions is supported using `print <expr>` command where the expression is first evaluated and then printed. Each print statement is executed in a new line (like _python_)!
+- Running the compiler -
+    - To run the compiler, use `make test` inside the tiger direcotry. This will generate the `mips` code corresponding to the test code in `tests/test.expr` file in `out.mips` file.
+    - To check to correctness of the mips code generated, use `make spim`, which will generate the output corresponding to the mips code in `out.mips` file in the terminal.
+    
