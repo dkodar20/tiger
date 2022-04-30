@@ -15,4 +15,4 @@
 - The tiger compiler is made for compiling the `tiger` language. 
 - The syntax for the tiger language can be found in _test.expr_ file. 
 - The tiger language supports the following features -
-    - 
+    - Add
