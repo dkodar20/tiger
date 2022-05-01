@@ -1,0 +1,19 @@
+$(SML_LIB)/basis/basis.mlb
+$(SML_LIB)/mlyacc-lib/mlyacc-lib.mlb
+$(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
+
+lib/ast.sml         (* the syntax                                   *)
+mips/mips.sml        (* mips *)
+IR/temp.sml        (* temp *)
+IR/ir.sml
+IR/tree_ir.sml
+src/translate_ir.sml
+src/canonization.sml
+register-alloc/register-allocation.sml (* register allocation *)
+src/machine.sml     (* For printing *)
+lexer/expr.grm.sig    (* The signature file generated for the grammar *)
+lexer/expr.lex.sml    (* The lexer for the machine                    *)
+lexer/expr.grm.sml    (* The parser                                   *)
+lib/basic-blocks.sml (* Basic blocks file *)
+(* graph.sml (* Graphs for compiler *) *)
+src/ec.sml
