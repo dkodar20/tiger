@@ -40,7 +40,7 @@
 - All the features mentioned above can be found in the tiger tree compiler as well, except the `for` loop and printing in new lines
 - Run `make test` and / or `make spim` inside the _tiger\_tree_ folder to test the code
 - `make basics` can be run similarly inside the _tiger\_tree_ folder to print the basic blocks for the corresponding test code
-- The tree based IR can be found in `IR/tree_ir.sml`. The translation to tree IR and canonization can be found in `src/translate_ir.sml` and `src/canonization.sml` respectively
+- The tree based IR can be found in _IR/tree\_ir.sml_. The translation to tree IR and canonization can be found in _src/translate_ir.sml_ and _src/canonization.sml_ respectively
 - Other file structures and specifics remains similar to that of the tiger compiler without tree IR as specified before
 
 ## Other independent assignments
