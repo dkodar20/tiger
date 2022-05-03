@@ -37,6 +37,7 @@ In lab - 6
 - Added functors, structure and signature for basic blocks in compiler
 - New files created or updated - tiger/basic-blocks.sml
 
-## Future work
-To complete Labs without deadline
-
+## Final Submission (May 3)
+- Compiler with Tree IR implemented
+- Graphs for compilers implemented
+- `SUMMARY.md` added with the entire summary of the project

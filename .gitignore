@@ -3,6 +3,7 @@ rough/*
 rough
 rp
 ec
+bb
 *.lex.sml
 *.grm.sml
 *.grm.desc
