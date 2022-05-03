@@ -24,6 +24,31 @@ li $s3, 50
 mul $s1, $s2, $s3
 sub $t9, $s0, $s1
 move $t8, $t9
+
+4th Basic Block: 
+loop: 
+bgt $s4, 5, continue
+
+5th Basic Block: 
+move $a0, $s4
+li $v0, 1
+syscall
+la $a0, newline
+li $v0, 4
+syscall
+li $s6, 2
+move $s5, $s6
+move $a0, $s5
+li $v0, 1
+syscall
+la $a0, newline
+li $v0, 4
+syscall
+addi $s4, $s4, 1
+j loop
+
+6th Basic Block: 
+continue: 
 move $a0, $t0
 li $v0, 1
 syscall
