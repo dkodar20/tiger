@@ -44,7 +44,6 @@
 - Other file structures and specifics remain similar to that of the tiger compiler without tree IR as specified before
 
 ## Other independent assignments
-- The _`lab-0`_ folder contains the work required to be done in the preparation lab including a hello world sml program, which can by run through `Makefile`
 - The _`target/mips.sml`_ file was created in order to capture the MIPS syntax in sml. This file is used in both the _`tiger`_ and _`tiger_tree`_ compiler and can be found inside the mips folder of their directories as well
 - The _`graph.sml`_ contains the representation of a generic directed graph in sml. These can be used in future with the compiler to represent its control flow graph. Supports several functions including but not limited to adding new nodes and edges to the graph separately, successor and predecessor of a node, listing all the nodes in graph etc. 
 
