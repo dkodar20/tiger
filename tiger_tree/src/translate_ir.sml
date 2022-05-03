@@ -52,6 +52,9 @@ fun translate_ir (Ast.Op (Ast.Variable x, Ast.Assign, y)) =
 			prog := [Tree.SEQ (Tree.SEQ (Tree.EXP (Tree.CALL (Tree.NAME ("syscall"), [])), 
 					  Tree.MOVE (Tree.TEMP ~5, Tree.CONST 1)),
 					  Tree.MOVE (Tree.TEMP ~1, Tree.TEMP (translate_ir x)))] @ !prog;
+			prog := [Tree.SEQ (Tree.SEQ (Tree.EXP (Tree.CALL (Tree.NAME ("syscall"), [])), 
+					  Tree.MOVE (Tree.TEMP ~5, Tree.CONST 4)),
+					  Tree.MOVE (Tree.TEMP ~1, Tree.NAME ("newline")))] @ !prog;
 			curr
 		end
 

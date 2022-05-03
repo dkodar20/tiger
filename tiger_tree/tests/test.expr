@@ -1,5 +1,13 @@
-# This is a test file for input to the expression compiler ec.
+# This is a test file for input to the tiger compiler.
+# Comments start with a hash 
+# Empty lines between the code lines are not supported
+# An empty line at end of code is necessary
+# Testing variable assignment
 x := 40 + 20
+# Testing parentheses
 y := (x * x) + 20
+# Testing large expression, precedence and negtive output
+z := (x * x) - y * y * 50
 print x
 print y
+print z

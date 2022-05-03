@@ -11,6 +11,8 @@ fun compileExpr (Tree.MOVE (Tree.TEMP x, Tree.TEMP y)) = [IR.instruction (IR.mov
 	
 	| compileExpr (Tree.MOVE (Tree.TEMP x, Tree.CONST y)) = [IR.instruction (IR.li (x, y))] 
 
+	| compileExpr (Tree.MOVE (Tree.TEMP x, Tree.NAME "newline")) = [IR.instruction (IR.la (~1, "newline"))]
+
 	| compileExpr (Tree.MOVE (Tree.TEMP curr, (Tree.BINOP (Tree.PLUS, Tree.TEMP x, Tree.TEMP y)))) = [IR.instruction (IR.add (curr, x, y))]
 
 	| compileExpr (Tree.MOVE (Tree.TEMP curr, (Tree.BINOP (Tree.MUL, Tree.TEMP x, Tree.TEMP y)))) = [IR.instruction (IR.mul (curr, x, y))]
