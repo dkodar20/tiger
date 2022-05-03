@@ -29,11 +29,11 @@
     - Use `make clean` to clear the executables 
 - Extras - 
     - The compiler features printing of basic blocks in order to know the control flow of the compiler and can be helpful in debugging. To print the basic blocks of MIPS assembly code corresponding to the the test case file, use `make basics`. The generated basic blocks are printed in both the terminal and are stored in the _basics.out_ file
-- File Structure -
-    __Parsing__ - The code for parsing the files can be found in the _lexer_ folder inside the tiger directory. The lexer is responsible for making the AST corresponding to input file. The AST structure can be found in _lib/ast.sml_
+- File Structure -  
+    __Parsing__ - The code for parsing the files can be found in the _lexer_ folder inside the tiger directory. The lexer is responsible for making the AST corresponding to input file. The AST structure can be found in _lib/ast.sml_  
     __IR code generation__ - This is done using the _src/translate.sml_ file. The supporting files include _IR/ir.sml_ and _IR/temp.sml_ which contain the how the IR is represented
-    __MIPS assemble program generation__ - This is a step by step process which first involves register allocation (done using _register-alloc/register-allocation.sml_) and then printing the MIPS assembly code (done using _src/machine.sml_). The supporting file includes _mips/mips.sml_ which is contains the MIPS structure
-    __Others__ - The code execution of the entire compiler is done from _src/ec.sml_. The code for basic blocks building can be found in _lib/basic-blocks.sml_. The `ML Basis`, which specifies specific file order can be found in _ec.mlb_ and _bb.mlb_ files
+    __MIPS assemble program generation__ - This is a step by step process which first involves register allocation (done using _register-alloc/register-allocation.sml_) and then printing the MIPS assembly code (done using _src/machine.sml_). The supporting file includes _mips/mips.sml_ which is contains the MIPS structure  
+    __Others__ - The code execution of the entire compiler is done from _src/ec.sml_. The code for basic blocks building can be found in _lib/basic-blocks.sml_. The `ML Basis`, which specifies specific file order can be found in _ec.mlb_ and _bb.mlb_ files  
 
 ## Tiger Compiler with Tree IR
 - The entire code for the tiger compiler built based on Tree IR and canonization can be found in tiger_tree folder in the root of the repository.Thus all the files and directories talked about below are contained in the tiger folder itself unless specifically specified.
