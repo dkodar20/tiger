@@ -1,8 +1,14 @@
+
+1th Basic Block: 
 .data 
+
+2th Basic Block: 
 newline: 
 .asciiz "\n"
 .text 
 .globl main
+
+3th Basic Block: 
 main: 
 li $t2, 40
 li $t3, 20
@@ -12,6 +18,31 @@ mul $t6, $t0, $t0
 li $t7, 20
 add $t5, $t6, $t7
 move $t4, $t5
+
+4th Basic Block: 
+loop: 
+bgt $t8, 5, continue
+
+5th Basic Block: 
+move $a0, $t8
+li $v0, 1
+syscall
+la $a0, newline
+li $v0, 4
+syscall
+li $s0, 2
+move $t9, $s0
+move $a0, $t9
+li $v0, 1
+syscall
+la $a0, newline
+li $v0, 4
+syscall
+addi $t8, $t8, 1
+j loop
+
+6th Basic Block: 
+continue: 
 move $a0, $t0
 li $v0, 1
 syscall

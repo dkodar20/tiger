@@ -74,6 +74,11 @@ ec: src/ec.sml ec.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} src/transl
 test: all
 	${CURDIR}/ec ${TEST_DIR}/test.expr > out.mips
 
+basics: src/print_basic_blocks.sml bb.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} src/translate.sml
+	mlton bb.mlb
+	${CURDIR}/bb ${TEST_DIR}/test.expr > out.mips
+
+
 graph: graph.sml
 	smlnj graph.sml
 
