@@ -61,21 +61,31 @@ all: ec
 
 .PHONY: all clean test spim
 
+.SILENT: test basics spim
+
+
 clean:
 	rm -rf lexer/*.lex.sml
-	rm -rf lexer/*.grm.sml lexer/*.grm.desc lexer/*.grm.sig ec
+	rm -rf lexer/*.grm.sml lexer/*.grm.desc lexer/*.grm.sig ec bb
 
-# rp: rp.lex.sml rp.mlb rp.sml ${COMMON}
-# 	mlton rp.mlb
 
 ec: src/ec.sml ec.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} src/translate_ir.sml src/canonization.sml
 	mlton ec.mlb
 
+
 test: all
 	${CURDIR}/ec ${TEST_DIR}/test.expr > out.mips
 
+
+basics: src/print_basic_blocks.sml bb.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} src/translate_ir.sml src/canonization.sml
+	mlton bb.mlb
+	${CURDIR}/bb ${TEST_DIR}/test.expr > basics.out
+	cat basics.out
+
+
 graph: graph.sml
 	smlnj graph.sml
+
 
 spim: test
 	spim -f ${CURDIR}/out.mips

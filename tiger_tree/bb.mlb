@@ -18,5 +18,6 @@ in
     lexer/expr.grm.sig    (* The signature file generated for the grammar *)
     lexer/expr.lex.sml    (* The lexer for the machine                    *)
     lexer/expr.grm.sml    (* The parser                                   *)
-    src/ec.sml
+    lib/basic-blocks.sml  (* Basic blocks file *)
+    src/print_basic_blocks.sml
 end
