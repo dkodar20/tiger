@@ -37,7 +37,7 @@
 
 ## Tiger Compiler with Tree IR
 - The entire code for the tiger compiler built based on Tree IR and canonization can be found in tiger_tree folder in the root of the repository.Thus all the files and directories talked about below are contained in the tiger folder itself unless specifically specified.
-- All the features mentioned above can be found in the tiger tree compiler as well, except the `for` loop and printing in new lines
+- All the features mentioned above can be found in the tiger tree compiler as well, except the `for` loop
 - Run `make test` and / or `make spim` inside the _`tiger_tree`_ folder to test the code
 - `make basics` can be run similarly inside the _`tiger_tree`_ folder to print the basic blocks for the corresponding test code
 - The tree based IR can be found in _`IR/tree_ir.sml`_. The translation to tree IR and canonization can be found in _src/translate_ir.sml_ and _`src/canonization.sml`_ respectively
@@ -45,9 +45,9 @@
 
 ## Other independent assignments
 - The _`lab-0`_ folder contains the work required to be done in the preparation lab including a hello world sml program, which can by run through `Makefile`
-- The _`target/mips.sml`_ file was created in order to capture the MIPS syntax in sml. This file is used in both the _`tiger`_ and _`tiger\_tree`_ compiler and can be found inside the mips folder of their directories as well
+- The _`target/mips.sml`_ file was created in order to capture the MIPS syntax in sml. This file is used in both the _`tiger`_ and _`tiger_tree`_ compiler and can be found inside the mips folder of their directories as well
 - The _`graph.sml`_ contains the representation of a generic graph in sml. These can be used in the compiler to represent its control flow graphs
 
 ## TODOs
 - Add more functionalities to the tiger language like handling functions
-- Make canonization for _`tiger\_tree`_  more generic
+- Make canonization for _`tiger_tree`_  more generic
