@@ -1,4 +1,4 @@
-# A Study on Compilers
+# Study on Compilers
 
 ## Reverse polish machine
 - The entire code of reverse polish machine is present in the _`reverse-polish`_ folder
