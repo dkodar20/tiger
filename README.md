@@ -31,7 +31,7 @@
     - The compiler features printing of basic blocks in order to know the control flow of the compiler and can be helpful in debugging. To print the basic blocks of MIPS assembly code corresponding to the the test case file, use `make basics`. The generated basic blocks are printed in both the terminal and is stored in the _`basics.out`_ file
 - File Structure -  
     __Parsing__ - The code for parsing the files can be found in the _`lexer`_ folder inside the tiger directory. The lexer is responsible for making the AST corresponding to input file. The AST structure can be found in _`lib/ast.sml`_  
-    __IR code generation__ - This is done using the _`src/translate.sml`_ file. The supporting files include _`IR/ir.sml`_ and _`IR/temp.sml`_ which contain the how the IR is represented
+    __IR code generation__ - This is done using the _`src/translate.sml`_ file. The supporting files include _`IR/ir.sml`_ and _`IR/temp.sml`_ which contain the how the IR is represented  
     __MIPS assemble program generation__ - This is a step by step process which first involves register allocation (done using _`register-alloc/register-allocation.sml`_) and then printing the MIPS assembly code (done using _`src/machine.sml`_). The supporting file includes _`mips/mips.sml`_ which is contains the MIPS structure  
     __Others__ - The code execution of the entire compiler is done from _`src/ec.sml`_. The code for basic blocks building can be found in _`lib/basic-blocks.sml`_. The `ML Basis`, which specifies specific file order can be found in _`ec.mlb`_ and _`bb.mlb`_ files  
 
