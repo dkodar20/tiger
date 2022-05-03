@@ -5,5 +5,4 @@ structure Temp = struct
    type label = string
 
    val nextTemp       = ref 0 (* Keep track of how many temps have been allocated *)
-   fun tempToString t = "hello"
 end

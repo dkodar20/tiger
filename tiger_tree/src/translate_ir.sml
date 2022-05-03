@@ -4,10 +4,7 @@ open AtomMap;
 structure Translate_IR =
 struct
 
-	val map_variable = ref (empty : Temp.temp map)
-
-(* fun get_exp (Tree.EXP x) = x *)
-
+val map_variable = ref (empty : Temp.temp map)
 val prog = ref ([] : Tree.stmt list)
 
 fun translate_ir (Ast.Op (Ast.Variable x, Ast.Assign, y)) =
@@ -71,25 +68,7 @@ fun translate_ir (Ast.Op (Ast.Variable x, Ast.Assign, y)) =
 
 val prog_final = ref ([] : Tree.stmt list)
 
-fun compileRev [] = [] 
-	(* | compileRev (Ast.For (a, b, c, d) :: xs) =
-		let
-			val old = !map_variable
-			val curr = !Temp.nextTemp : Temp.temp
-		in
-			Temp.nextTemp := (curr + 1);
-			map_variable := insert (!map_variable, Atom.atom(a), curr);
-			prog_final := !prog_final @ [IR.directive (IR.label ("loop"))];
-			prog_final := !prog_final @ [IR.instruction (IR.bgt (curr, c - b, "continue"))];
-			compileRev d;
-			prog_final := !prog_final @ [IR.instruction (IR.addi (curr, curr, 1))];
-			prog_final := !prog_final @ [IR.instruction (IR.j ("loop"))];
-			prog_final := !prog_final @ [IR.directive (IR.label ("continue"))];
-			map_variable := old;
-			compileRev xs;
-			!prog_final
-		end *)
-
+fun compileRev [] = []
 	| compileRev (x :: xs) = 
 		(	
 			translate_ir x;

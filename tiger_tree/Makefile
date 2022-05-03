@@ -68,7 +68,7 @@ clean:
 # rp: rp.lex.sml rp.mlb rp.sml ${COMMON}
 # 	mlton rp.mlb
 
-ec: src/ec.sml ec.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} src/translate.sml
+ec: src/ec.sml ec.mlb lexer/expr.grm.sml lexer/expr.lex.sml ${COMMON} src/translate_ir.sml src/canonization.sml
 	mlton ec.mlb
 
 test: all
